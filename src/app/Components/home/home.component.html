@@ -1,0 +1,81 @@
+@if(isLoading){
+<div class="h-75 loader d-flex w-100 mx-auto justify-content-center position-absolute z-3 align-items-center">
+    <div class="lds-ring  text-primary  mx-auto" bis_skin_checked="1">
+        <div bis_skin_checked="1"></div>
+        <div bis_skin_checked="1"></div>
+        <div bis_skin_checked="1"></div>
+        <div bis_skin_checked="1"></div>
+    </div>
+
+</div>
+}
+<div class="container  mt-3">
+    <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Search...">
+
+
+    <div class="d-flex flex-column mt-3 custom container rounded-3 position-relative overflow-hidden">
+
+        <div class="d-flex  justify-content-between align-content-center p-2">
+            <div>
+                <h5 class="text-center text-light">Btns</h5>
+            </div>
+            <div>
+                <h5 class="text-center text-light">Name</h5>
+            </div>
+            <h5 class="text-center text-light">User Name</h5>
+
+        </div>
+
+        @for(item of items.slice(pageNumber,sliceNumber) ; track $index ){
+        <div class="row  justify-content-between align-content-center p-2">
+            <div class="col-1">
+                <button (click)="toggleActive($index)" class="btn btn-outline-primary">
+                    <i class="fa-solid fa-chevron-right text-light fs-2 "></i>
+                </button>
+            </div>
+            <div class=" col-5 text-end">
+                <h5 class=" text-light">{{item.name}}</h5>
+            </div>
+            <div class="col-5 text-end">
+                <h5 class="  text-light username">{{item.username}}</h5>
+            </div>
+        </div>
+
+
+        <div class="position-relative  py-5 overflow-hidden " [class.Active2]="isActive[$index]"
+            [class.unActive2]="!isActive[$index]">
+            <h5 class="position-absolute text-white" [class]="{'Active': isActive, 'unActive': !isActive}"><a
+                    class="text-decoration-none text-light" href="tel:{{item.phone}}">Phone: {{item.phone}}</a> </h5>
+        </div>
+        <div class="position-relative  py-5 overflow-hidden " [class.Active2]="isActive[$index]"
+            [class.unActive2]="!isActive[$index]">
+            <h5 class="position-absolute text-white" [class]="{'Active': isActive, 'unActive': !isActive}"><a
+                    class="text-decoration-none text-light" href="mailto:{{item.email}}">Email: {{item.email}} </a></h5>
+        </div>
+        <div class="position-relative  py-5 overflow-hidden " [class.Active2]="isActive[$index]"
+            [class.unActive2]="!isActive[$index]">
+            <h5 class="position-absolute text-white" [class]="{'Active': isActive, 'unActive': !isActive}"><a
+                    class="text-decoration-none text-light" target="_blank" href="https://www.{{item.website}}">Website:
+                    {{item.website}}</a> </h5>
+        </div>
+
+
+        }
+
+
+
+    </div>
+    <div class="d-flex w-100  justify-content-around mt-3">
+
+        <button class="btn btn-primary m-2" (click)="slicePageBack()" [disabled]="pageNumber==0? true:false">
+            <i class="fa-solid fa-chevron-left text-light fs-2"></i>
+        </button>
+        <button class="btn btn-primary m-2" (click)="slicePageForward()"
+            [disabled]="sliceNumber==items.length? true:false">
+            <i class="fa-solid fa-chevron-right text-light fs-2"></i>
+        </button>
+
+    </div>
+
+
+</div>
